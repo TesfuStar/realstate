@@ -17,7 +17,7 @@ export const createProperty =async(req,res)=>{
 export const getOneProperty=async(req,res)=>{
        try {
          const property = await Property.findById(req.params.id).populate("agents");
-         res.status(200).json(property)
+         res.status(200).json([property])
        } catch (error) {
         res.status(404).json({message:error.message})
        }
