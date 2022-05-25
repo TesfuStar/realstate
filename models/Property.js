@@ -3,7 +3,7 @@ import mongoose  from 'mongoose'
 
 const AddressSchema = new mongoose.Schema({
       city:{type:String,required:true},
-      area:{type:String,required:true},
+      location:{type:String,required:true},
       latitude:{type:Number,required:true},
       longtude:{type:Number,required:true}
 
@@ -14,6 +14,7 @@ const PropertySchema = new mongoose.Schema({
     img:{type:Array,required:true},
     price:{type:Number,required:true},
     description:{type:String,required:true},//text descriptionfor the property 
+    type:{type:String,required:true}, 
     details:{
         area:{type:Number,required:true},//in square
         bedroom:{type:Number,required:true},

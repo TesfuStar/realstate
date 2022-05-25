@@ -14,10 +14,13 @@ export const createProperty =async(req,res)=>{
 
 //get single property
 
-export const getOneProperty=async(req,res)=>{
+export const getByType=async(req,res)=>{
+  const qtype=req.query.abdi;
        try {
-         const property = await Property.findById(req.params.id).populate("agents");
+        const sample = new RegExp(qtype,'i')
+         const property = await Property.find({"details.propertytype":"sale"}).populate("agents");
          res.status(200).json([property])
+         console.log(property)
        } catch (error) {
         res.status(404).json({message:error.message})
        }
@@ -66,10 +69,11 @@ export const getSingleProperty=async(req,res)=>{
 
 export const getProperty =async(req,res)=>{
   const qOwner=req.query.realstate;
-  
+  const qType=req.query.types
  try{
     let properties;
     const sample = new RegExp(qOwner,'i')
+    const sampletwo = new RegExp(qType,'i')
      if(qOwner){
         properties = await Property.find({
             owner:{
@@ -77,6 +81,13 @@ export const getProperty =async(req,res)=>{
             }
         }).populate("agents");
     }
+    else if(qType){
+      properties = await Property.find({
+          type:{
+              $in:[sampletwo]
+          }
+      }).populate("agents");
+  }
     else{
         properties =await Property.find().populate("agents");
     }
