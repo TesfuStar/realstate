@@ -57,7 +57,7 @@ export const getSingleProperty=async(req,res)=>{
  try {
   const singleProperty = await Property.findById(id).populate("agents");
 
-     res.status(200).json(singleProperty)
+     res.status(200).json([singleProperty])
   } catch (error) {
    res.status(404).json({message:error.message})
  }
