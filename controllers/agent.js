@@ -50,8 +50,8 @@ export const CreateComment=async(req,res)=>{
 
 export const getSingleAgent=async(req,res)=>{
     try{
-        let meal = await Agent.findById(req.params.id)
-        res.status(200).json(meal)
+        const agent = await Agent.findById(req.params.id)
+        res.status(200).json([agent])
    
 
     }catch(err){

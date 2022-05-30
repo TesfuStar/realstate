@@ -99,3 +99,24 @@ export const getProperty =async(req,res)=>{
 }
 
 
+export const getByFilter=async(req,res)=>{
+ const {minprice,maxprice,bathroom,bedroom,minarea,maxarea,type,realstate}=req.query
+  try {
+    const property =await Property.find(
+      {price:{$gt:minprice | 10000,$lt:maxprice || 20000000},
+      "details.bedroom":{$lte:bedroom || 1},
+      "details.bathroom":{$lte:bathroom || 1},
+      "details.area":{$gt:minarea | 100, $lt:maxarea || 10000},
+      "details.propertytype":{$eq:type},
+      owner:{$eq:realstate || null}
+    },
+  
+      
+      )
+    res.status(200).json(property)
+    
+  } catch (error) {
+    res.status(500).json(error)
+  }
+
+}
